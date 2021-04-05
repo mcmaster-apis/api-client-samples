@@ -1,0 +1,8 @@
+{
+  "short_name": "Sample Application",
+  "name": "McMaster University API Client React Sample",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

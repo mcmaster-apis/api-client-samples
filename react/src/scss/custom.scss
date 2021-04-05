@@ -1,0 +1,42 @@
+$theme-colors: (
+  "primary": #7a003c,
+  "secondary": #fdbf57,
+  "light": #efefef,
+  "dark": #222222,
+  "warning": #ffd100,
+  "success": #d2d755,
+  "info": #8bd3e6,
+  "danger": #a6192e
+);
+
+@font-face {
+    src: url("../fonts/roboto-condensed-v19-latin-regular.woff2") format("woff2");
+
+    font-family: "Roboto Condensed";
+    font-weight: 400;
+}
+
+$font-family-sans-serif: "Roboto Condensed", sans-serif;
+
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+body {
+  margin: 0;
+  @include font-smoothing(antialiased);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
