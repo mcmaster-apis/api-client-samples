@@ -1,23 +1,27 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { React } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import { MsalProvider } from "@azure/msal-react";
+import { MsalProvider } from '@azure/msal-react';
 
-import { PageLayout } from "./components/PageLayout";
-import { Profile } from "./pages/Profile";
-import { Courses } from "./pages/Courses";
+import { PageLayout } from './components/PageLayout';
+import { Profile } from './pages/Profile';
+import { Courses } from './pages/Courses';
+
+import { PropTypes } from 'prop-types';
+import { PublicClientApplication } from '@azure/msal-browser';
 
 const Pages = () => {
   return (
     <Switch>
-      <Route path="/profile">
+      <Route path='/profile'>
         <Profile />
       </Route>
-      <Route path="/courses">
+      <Route path='/courses'>
         <Courses />
       </Route>
     </Switch>
-  )
-}
+  );
+};
 
 /**
  * msal-react is built on the React context API and all parts of your app that require authentication must be 
@@ -36,6 +40,9 @@ const App = ({ instance }) => {
       </MsalProvider>
     </Router>
   );
-}
+};
+App.propTypes = {
+  instance: PropTypes.instanceOf(PublicClientApplication).isRequired
+};
 
 export default App;

@@ -1,52 +1,52 @@
-import { useEffect, useState } from "react";
+import { React, useEffect, useState } from 'react';
 
-import { MsalAuthenticationTemplate, useMsal, useAccount } from "@azure/msal-react";
-import { InteractionRequiredAuthError, InteractionType } from "@azure/msal-browser";
+import { MsalAuthenticationTemplate, useMsal, useAccount } from '@azure/msal-react';
+import { InteractionRequiredAuthError, InteractionType } from '@azure/msal-browser';
 
-import { loginRequest, protectedResources } from "../authConfig";
-import { callApiWithToken } from "../fetch";
-import { CoursesData } from "../components/CoursesDisplay";
+import { loginRequest, protectedResources } from '../authConfig';
+import callApiWithToken from '../fetch';
+import { CoursesData } from '../components/CoursesDisplay';
 
 const CoursesContent = () => {
-    /**
-     * useMsal is hook that returns the PublicClientApplication instance, 
-     * an array of all accounts currently signed in and an inProgress value 
-     * that tells you what msal is currently doing. For more, visit: 
-     * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/hooks.md
-     */
-    const { instance, accounts, inProgress } = useMsal();
-    const account = useAccount(accounts[0] || {});
-    const [coursesData, setCoursesData] = useState(null);
+  /**
+   * useMsal is hook that returns the PublicClientApplication instance, 
+   * an array of all accounts currently signed in and an inProgress value 
+   * that tells you what msal is currently doing. For more, visit: 
+   * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/hooks.md
+   */
+  const { instance, accounts, inProgress } = useMsal();
+  const account = useAccount(accounts[0] || {});
+  const [coursesData, setCoursesData] = useState(null);
 
-    useEffect(() => {
-        if (account && inProgress === "none" && !coursesData) {
-            instance.acquireTokenSilent({
-                scopes: protectedResources.courses.scopes,
-                account: account
+  useEffect(() => {
+    if (account && inProgress === 'none' && !coursesData) {
+      instance.acquireTokenSilent({
+        scopes: protectedResources.courses.scopes,
+        account: account
+      }).then((response) => {
+        callApiWithToken(response.accessToken, protectedResources.courses.endpoint)
+          .then(response => setCoursesData(response));
+      }).catch((error) => {
+        // in case if silent token acquisition fails, fallback to an interactive method
+        if (error instanceof InteractionRequiredAuthError) {
+          if (account && inProgress === 'none') {
+            instance.acquireTokenPopup({
+              scopes: protectedResources.courses.scopes
             }).then((response) => {
-                callApiWithToken(response.accessToken, protectedResources.courses.endpoint)
-                    .then(response => setCoursesData(response))
-            }).catch((error) => {
-                // in case if silent token acquisition fails, fallback to an interactive method
-                if (error instanceof InteractionRequiredAuthError) {
-                    if (account && inProgress === "none") {
-                        instance.acquireTokenPopup({
-                            scopes: protectedResources.courses.scopes,
-                        }).then((response) => {
-                            callApiWithToken(response.accessToken, protectedResources.courses.endpoint)
-                                .then(response => setCoursesData(response));
-                        }).catch(error => console.log(error));
-                    }
-                }
-            });
+              callApiWithToken(response.accessToken, protectedResources.courses.endpoint)
+                .then(response => setCoursesData(response));
+            }).catch(error => console.log(error));
+          }
         }
-    }, [account, inProgress, instance]);
+      });
+    }
+  }, [account, inProgress, instance]);
   
-    return (
-        <>
-            { coursesData ? <CoursesData student={coursesData} /> : null }
-        </>
-    );
+  return (
+    <>
+      { coursesData ? <CoursesData student={coursesData} /> : null }
+    </>
+  );
 };
 
 /**
@@ -57,16 +57,16 @@ const CoursesContent = () => {
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md
  */
 export const Courses = () => {
-    const authRequest = {
-        ...loginRequest
-    };
+  const authRequest = {
+    ...loginRequest
+  };
 
-    return (
-        <MsalAuthenticationTemplate 
-            interactionType={InteractionType.Redirect} 
-            authenticationRequest={authRequest}
-        >
-            <CoursesContent />
-        </MsalAuthenticationTemplate>
-      )
+  return (
+    <MsalAuthenticationTemplate 
+      interactionType={InteractionType.Redirect} 
+      authenticationRequest={authRequest}
+    >
+      <CoursesContent />
+    </MsalAuthenticationTemplate>
+  );
 };
