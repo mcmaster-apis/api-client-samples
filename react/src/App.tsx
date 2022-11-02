@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import { MsalProvider } from '@azure/msal-react';
@@ -7,7 +7,6 @@ import { PageLayout } from './components/PageLayout';
 import { Profile } from './pages/Profile';
 import { Courses } from './pages/Courses';
 
-import { PropTypes } from 'prop-types';
 import { PublicClientApplication } from '@azure/msal-browser';
 
 const Pages = () => {
@@ -30,9 +29,9 @@ const Pages = () => {
  * PublicClientApplication instance via context as well as all hooks and components provided by msal-react. For more, visit:
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-react/docs/getting-started.md
  */
-const App = ({ instance }) => {
+const App = ({ instance: PublicClientApplication }) => {
   return (
-    <Router>
+      <Router>
       <MsalProvider instance={instance}>
         <PageLayout>
           <Pages />
@@ -40,9 +39,6 @@ const App = ({ instance }) => {
       </MsalProvider>
     </Router>
   );
-};
-App.propTypes = {
-  instance: PropTypes.instanceOf(PublicClientApplication).isRequired
 };
 
 export default App;
