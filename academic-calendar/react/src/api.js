@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export default axios.create({
   baseURL: `${window._env.calendarApi.endpoint}`,
@@ -8,4 +8,4 @@ export default axios.create({
       'Ocp-Apim-Subscription-Key': `${window._env.calendarApi.key}`
     }
   }
-});
+})

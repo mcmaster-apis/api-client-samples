@@ -1,5 +1,5 @@
-import { React } from 'react';
-import { PropTypes } from 'prop-types';
+import { React } from 'react'
+import { PropTypes } from 'prop-types'
 
 export const PageLayout = (props) => {
   return (
@@ -9,9 +9,9 @@ export const PageLayout = (props) => {
       {props.children}
       <br />
     </>
-  );
-};
+  )
+}
 
 PageLayout.propTypes = {
   children: PropTypes.any.isRequired
-};
+}

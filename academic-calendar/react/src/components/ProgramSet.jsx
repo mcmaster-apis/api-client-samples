@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-import Accordion from 'react-bootstrap/Accordion';
-import API from '../api';
-import ProgramDetails from './ProgramDetails';
+import Accordion from 'react-bootstrap/Accordion'
+import API from '../api'
+import ProgramDetails from './ProgramDetails'
 
 const ProgramAccordionItems = (props) => {
   return Object.entries(props.programs).map((entry, index) => {
@@ -13,26 +14,31 @@ const ProgramAccordionItems = (props) => {
           <ProgramDetails program={entry[1]} />
         </Accordion.Body>
       </Accordion.Item>
-    );    
-  });  
-};
+    )
+  })
+}
 
 const ProgramSet = (props) => {
-  const [programs, setPrograms] = useState([]);
+  const [programs, setPrograms] = useState([])
 
   useEffect(() => {
     if (props.career && props.faculty) {
       API(`programs?careerCode=${props.career}&facultyCode=${props.faculty}`)
         .then(resp => setPrograms(resp.data.programs))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
-  }, [props.career, props.faculty]);
+  }, [props.career, props.faculty])
 
   return (
     <Accordion defaultActiveKey="0">
       <ProgramAccordionItems programs={programs} />
     </Accordion>
-  );
+  )
 }
 
-export default ProgramSet;
+ProgramSet.propTypes = {
+  career: PropTypes.string,
+  faculty: PropTypes.string
+}
+
+export default ProgramSet
