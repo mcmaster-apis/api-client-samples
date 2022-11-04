@@ -1,26 +1,27 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import API from '../api';
+import Dropdown from 'react-bootstrap/Dropdown'
+import API from '../api'
 
 const DropDownItems = (props) => {
   return Object.entries(props.faculties).map((entry, index) => {
     return (
       <Dropdown.Item key={index} eventKey={entry[1].code} active={entry[1].code === props.faculty}>{entry[1].description}</Dropdown.Item>
-    );    
-  });  
+    )
+  })
 }
 
 const FacultyFilter = (props) => {
-  const [faculties, setFaculties] = useState([]);
+  const [faculties, setFaculties] = useState([])
 
   useEffect(() => {
     if (!faculties.length) {
-      API("faculties")
+      API('faculties')
         .then(resp => setFaculties(resp.data.faculties))
-        .catch(err => console.log(err));
+        .catch(err => console.log(err))
     }
-  }, []);
+  }, [])
 
   return (
     <Dropdown onSelect={props.onSelect}>
@@ -32,7 +33,12 @@ const FacultyFilter = (props) => {
         <DropDownItems faculties={faculties} faculty={props.faculty} />
       </Dropdown.Menu>
     </Dropdown>
-  );
+  )
 }
 
-export default FacultyFilter;
+FacultyFilter.propTypes = {
+  faculty: PropTypes.string.isRequired,
+  onSelect: PropTypes.func.isRequired
+}
+
+export default FacultyFilter

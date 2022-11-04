@@ -1,23 +1,23 @@
-import { useState } from 'react';
+import React, { useState } from 'react'
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import CareerFilter from './CareerFilter';
-import FacultyFilter from './FacultyFilter';
-import ProgramSet from './ProgramSet';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import CareerFilter from './CareerFilter'
+import FacultyFilter from './FacultyFilter'
+import ProgramSet from './ProgramSet'
 
 const ProgramExplorator = () => {
-  const [state, setState] = useState({career: "", faculty: ""});
-  
+  const [state, setState] = useState({ career: '', faculty: '' })
+
   const handleCareerChange = (career) => {
-    setState(prevState => ({...prevState, career: career}));
-  };
-   
+    setState(prevState => ({ ...prevState, career }))
+  }
+
   const handleFacultyChange = (faculty) => {
-    setState(prevState => ({...prevState, faculty: faculty}));
-  };
-   
+    setState(prevState => ({ ...prevState, faculty }))
+  }
+
   return (
     <>
       <Container fluid>
@@ -34,7 +34,7 @@ const ProgramExplorator = () => {
         </Row>
       </Container>
     </>
-  );
+  )
 }
 
-export default ProgramExplorator;
+export default ProgramExplorator
