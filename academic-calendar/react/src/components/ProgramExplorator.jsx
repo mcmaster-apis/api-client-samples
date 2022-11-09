@@ -26,7 +26,13 @@ const ProgramExplorator = () => {
             <CareerFilter career={state.career} onSelect={handleCareerChange} />
           </Col>
           <Col>
+            {state.career}
+          </Col>
+          <Col>
             <FacultyFilter faculty={state.faculty} onSelect={handleFacultyChange} />
+          </Col>
+          <Col>
+            {state.faculty}
           </Col>
         </Row>
         <Row>
