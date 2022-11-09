@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { PageLayout } from './components/PageLayout'
-import ProgramExplorator from './components/ProgramExplorator'
+const ProgramExplorator = React.lazy(() => import('./components/ProgramExplorator'))
 
 const Pages = () => {
   return (
