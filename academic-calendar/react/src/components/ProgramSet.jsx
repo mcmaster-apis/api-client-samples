@@ -6,16 +6,18 @@ import API from '../api'
 import ProgramDetails from './ProgramDetails'
 
 const ProgramAccordionItems = (props) => {
-  return Object.entries(props.programs).map((entry, index) => {
-    return (
-      <Accordion.Item key={index} eventKey={entry[1].code}>
-        <Accordion.Header>{entry[1].code}</Accordion.Header>
-        <Accordion.Body>
-          <ProgramDetails program={entry[1]} />
-        </Accordion.Body>
-      </Accordion.Item>
-    )
-  })
+  if (props.programs) {
+    return Object.entries(props.programs).map((entry, index) => {
+      return (
+        <Accordion.Item key={index} eventKey={entry[1].code}>
+          <Accordion.Header>{entry[1].code}</Accordion.Header>
+          <Accordion.Body>
+            <ProgramDetails program={entry[1]} />
+          </Accordion.Body>
+        </Accordion.Item>
+      )
+    })
+  }
 }
 
 const ProgramSet = (props) => {
