@@ -20,7 +20,7 @@ const ProgramExplorator = () => {
 
   return (
     <>
-      <Container fluid>
+      <Container>
         <Row>
           <Col>
             <CareerFilter career={state.career} onSelect={handleCareerChange} />
@@ -28,6 +28,8 @@ const ProgramExplorator = () => {
           <Col>
             {state.career}
           </Col>
+        </Row>
+        <Row>
           <Col>
             <FacultyFilter faculty={state.faculty} onSelect={handleFacultyChange} />
           </Col>
