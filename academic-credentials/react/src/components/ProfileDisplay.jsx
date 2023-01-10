@@ -1,16 +1,17 @@
-import { React } from 'react';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Jumbotron from 'react-bootstrap/Jumbotron'
 
-import { Container, Row, Col, Jumbotron } from 'react-bootstrap';
+import { PropTypes } from 'prop-types'
 
-import { PropTypes } from 'prop-types';
-
-export const ProfileData = (props) => {
+const ProfileData = (props) => {
   const tableRows = Object.entries(props.graphData).map((entry, index) => {
     return (<tr key={index}>
       <td><b>{entry[0]}: </b></td>
       <td>{entry[1]}</td>
-    </tr>);
-  });
+    </tr>)
+  })
 
   return (
     <>
@@ -37,8 +38,11 @@ export const ProfileData = (props) => {
         </Row>
       </Container>
     </>
-  );
-};
+  )
+}
+
 ProfileData.propTypes = {
   graphData: PropTypes.any.isRequired
-};
+}
+
+export default ProfileData
