@@ -1,14 +1,14 @@
-const callApiWithToken = async(accessToken, apiEndpoint) => {
-  const headers = new Headers();
-  const bearer = `Bearer ${accessToken}`;
+const callApiWithToken = async (accessToken, apiEndpoint) => {
+  const headers = new Headers()
+  const bearer = `Bearer ${accessToken}`
 
-  headers.append('Authorization', bearer);
+  headers.append('Authorization', bearer)
 
-  const options = { method: 'GET', headers };
+  const options = { method: 'GET', headers }
 
   return fetch(apiEndpoint, options)
     .then((response) => response.json())
-    .catch((error) => console.log(error));
-};
+    .catch((error) => console.log(error))
+}
 
-export default callApiWithToken;
+export default callApiWithToken

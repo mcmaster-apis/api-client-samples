@@ -1,27 +1,30 @@
-import { React } from 'react';
+import PropTypes from 'prop-types'
 
-import  { Container, Row, Col, Card, Accordion, ListGroup } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import Accordion from 'react-bootstrap/Accordion'
+import ListGroup from 'react-bootstrap/ListGroup'
 
-import { PropTypes } from 'prop-types';
-
-export const CourseEnrolmentsData = (props) => {
+const CourseEnrolmentsData = (props) => {
   const items = Object.entries(props.enrolments).map((entry, index) => {
     return (<ListGroup.Item key={index}>
       {entry[1].subject} {entry[1].catalogNumber}: &quot;{entry[1].title}&quot;
-    </ListGroup.Item>);    
-  });
-  
+    </ListGroup.Item>)
+  })
+
   return (
     <ListGroup>
       {items}
     </ListGroup>
-  );
-};
+  )
+}
 CourseEnrolmentsData.propTypes = {
   enrolments: PropTypes.any.isRequired
-};
+}
 
-export const CoursesData = (props) => {
+const CoursesData = (props) => {
   const cards = Object.entries(props.student.terms)
     .sort((a, b) => new Date(a[1].startDate) - new Date(b[1].startDate))
     .map((entry, index) => {
@@ -36,9 +39,9 @@ export const CoursesData = (props) => {
             <CourseEnrolmentsData enrolments={entry[1].courses} />
           </Card.Body>
         </Accordion.Collapse>
-      </Card>);
-    });
-  
+      </Card>)
+    })
+
   return (
     <>
       <Container fluid>
@@ -51,8 +54,11 @@ export const CoursesData = (props) => {
         </Row>
       </Container>
     </>
-  );
-};
+  )
+}
+
 CoursesData.propTypes = {
   student: PropTypes.any.isRequired
-};
+}
+
+export default CoursesData
