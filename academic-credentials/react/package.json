@@ -25,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint **/*.jsx **/*.js"
+    "lint": "eslint src/**/*.jsx src/**/*.js"
   },
   "browserslist": {
     "production": [
