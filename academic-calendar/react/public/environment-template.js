@@ -1,4 +1,7 @@
-// Override this file in your deployment environment to change remote resource endpoint behaviour
+// Environment-specific settings from e.g. a Kubernetes configMap.
+// This is a single page application, these values will be visible
+// in browser code.  Use for PUBLIC information only.
+
 window._env = {
   calendarApi: {
     endpoint: "https://api.mcmaster.ca/calendar/v2",
