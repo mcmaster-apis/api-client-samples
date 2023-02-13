@@ -7,7 +7,7 @@ import API from '../api'
 const DropDownItems = (props) => {
   return Object.entries(props.faculties).map((entry, index) => {
     return (
-      <Dropdown.Item key={index} eventKey={entry[1].code} active={entry[1].code === props.faculty}>{entry[1].description}</Dropdown.Item>
+      <Dropdown.Item data-testid="faculty-option" key={index} eventKey={entry[1].code} active={entry[1].code === props.faculty}>{entry[1].description}</Dropdown.Item>
     )
   })
 }
@@ -29,7 +29,7 @@ const FacultyFilter = (props) => {
         Select Faculty
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu aria-label='filter-menu'>
         <DropDownItems faculties={faculties} faculty={props.faculty} />
       </Dropdown.Menu>
     </Dropdown>

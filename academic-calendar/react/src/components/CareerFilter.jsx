@@ -7,19 +7,18 @@ import API from '../api'
 const DropDownItems = (props) => {
   return Object.entries(props.careers).map((entry, index) => {
     return (
-      <Dropdown.Item key={index} eventKey={entry[1].code} active={entry[1].code === props.career}>{entry[1].description}</Dropdown.Item>
+      <Dropdown.Item data-testid="career-option" key={index} eventKey={entry[1].code} active={entry[1].code === props.career}>{entry[1].description}</Dropdown.Item>
     )
   })
 }
 
 const CareerFilter = (props) => {
   const [careers, setCareers] = useState([])
-
   useEffect(() => {
     if (!careers.length) {
-      API('careers')
-        .then(resp => setCareers(resp.data.careers))
-        .catch(err => console.log(err))
+      API(`careers`)
+        .then(resp => {setCareers(resp.data.careers)})
+        .catch(err=> console.log(err))
     }
   }, [])
 
@@ -29,7 +28,7 @@ const CareerFilter = (props) => {
         Select Career
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu aria-label='filter-menu'>
         <DropDownItems careers={careers} career={props.career} />
       </Dropdown.Menu>
     </Dropdown>
