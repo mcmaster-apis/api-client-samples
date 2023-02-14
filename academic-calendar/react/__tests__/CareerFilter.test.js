@@ -4,34 +4,15 @@ import { screen, waitFor } from "@testing-library/dom";
 
 import CareerFilter from "../src/components/CareerFilter";
 
-//import ProgramExplorator from "../src/components/ProgramExplorator";
-
 jest.mock("../src/api", () => jest.fn());
 const API = require("../src/api");
-
-// jest.mock("../src/components/FacultyFilter", () => {
-//   return {
-//     __esModule: true,
-//     default: () => {
-//       return <div></div>;
-//     },
-//   };
-// });
-
-//let container = null;
-
-// beforeEach(() => {
-//   // setup a DOM element as a render target
-//   container = document.createElement("div");
-//   document.body.appendChild(container);
-// });
 
 afterEach(cleanup);
 
 describe("CareerFilter UI render correctly", () => {
   const mockOnSelect = jest.fn();
 
-  it("without careers data", async () => {
+  it("without careers data, dropdown menu should be empty", async () => {
     //jest.setTimeout(5000);
     API.mockImplementationOnce(() => {
       return Promise.resolve({
@@ -52,7 +33,7 @@ describe("CareerFilter UI render correctly", () => {
     expect(screen.getByLabelText("filter-menu").innerHTML).toBe("");
   });
 
-  it("with mockCareers", async () => {
+  it("with mockCareers, dropdown menu should be populated", async () => {
     API.mockImplementationOnce(() => {
       return Promise.resolve({
         data: global.mockData.mockCareers,
@@ -95,6 +76,9 @@ describe("Changing career filter", () => {
     });
     expect(screen.getByText("Undergraduate")).toBeTruthy();
     fireEvent.click(screen.getByText("Undergraduate"));
-    expect(mockOnSelect).toHaveBeenCalled();
+
+    // expect onSelect to be triggered once with "UGRD" as 1st param
+    // and an Event object as 2nd param (hence expect.anything())
+    expect(mockOnSelect).toHaveBeenNthCalledWith(1, "UGRD", expect.anything());
   });
 });

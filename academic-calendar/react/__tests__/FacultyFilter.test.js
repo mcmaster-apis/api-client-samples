@@ -87,6 +87,9 @@ describe("Changing career filter", () => {
 
     expect(screen.getByText("Faculty of Science")).toBeTruthy();
     fireEvent.click(screen.getByText("Faculty of Science"));
-    expect(mockOnSelect).toHaveBeenCalled();
+
+    // expect onSelect to be triggered once with "02" as 1st param
+    // and an Event object as 2nd param (hence expect.anything())
+    expect(mockOnSelect).toHaveBeenNthCalledWith(1, "02", expect.anything());
   });
 });
