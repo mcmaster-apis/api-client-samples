@@ -5,4 +5,5 @@ module.exports = {
   verbose: true,
   testTimeout: 5000,
   testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["<rootDir>/.jest/setup-jest.js"],
 };

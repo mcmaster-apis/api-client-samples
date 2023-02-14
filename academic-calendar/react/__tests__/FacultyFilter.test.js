@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
 import "@testing-library/jest-dom";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import { screen, waitFor } from "@testing-library/dom";
@@ -8,24 +6,6 @@ import FacultyFilter from "../src/components/FacultyFilter";
 //set up a mock API call
 jest.mock("../src/api", () => jest.fn());
 const API = require("../src/api");
-
-const mockFaculties = {
-  id: "mockId",
-  faculties: [
-    {
-      id: "mockId/02",
-      code: "02",
-      description: "Faculty of Science",
-      shortDescription: "SCI",
-    },
-    {
-      id: "mockId/03",
-      code: "03",
-      description: "Faculty of Engineering",
-      shortDescription: "ENG",
-    },
-  ],
-};
 
 afterEach(cleanup);
 
@@ -62,7 +42,7 @@ describe("FacultyFilter UI render correctly", () => {
     //define the behavior of the mocked API call
     API.mockImplementationOnce(() => {
       return Promise.resolve({
-        data: mockFaculties,
+        data: global.mockData.mockFaculties,
       });
     });
 
@@ -89,7 +69,7 @@ describe("Changing career filter", () => {
     //define the behavior of the mocked API call
     API.mockImplementationOnce(() => {
       return Promise.resolve({
-        data: mockFaculties,
+        data: global.mockData.mockFaculties,
       });
     });
 

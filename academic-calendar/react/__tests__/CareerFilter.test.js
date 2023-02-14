@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
 import "@testing-library/jest-dom";
 import { render, fireEvent, cleanup } from "@testing-library/react";
 import { screen, waitFor } from "@testing-library/dom";
@@ -19,24 +17,6 @@ const API = require("../src/api");
 //     },
 //   };
 // });
-
-const mockCareers = {
-  id: "mockId",
-  careers: [
-    {
-      id: "mockId/UGRD",
-      description: "Undergraduate",
-      code: "UGRD",
-      shortDescription: "Undergrad",
-    },
-    {
-      id: "mockId/GRAD",
-      code: "GRAD",
-      description: "Graduate",
-      shortDescription: "Graduate",
-    },
-  ],
-};
 
 //let container = null;
 
@@ -75,7 +55,7 @@ describe("CareerFilter UI render correctly", () => {
   it("with mockCareers", async () => {
     API.mockImplementationOnce(() => {
       return Promise.resolve({
-        data: mockCareers,
+        data: global.mockData.mockCareers,
       });
     });
 
@@ -95,57 +75,12 @@ describe("CareerFilter UI render correctly", () => {
 });
 
 describe("Changing career filter", () => {
-  // it("no career filter, state.career should be empty", async () => {
-  //   API.mockImplementationOnce(() => {
-  //     return Promise.resolve({
-  //       data: mockCareers,
-  //     });
-  //   });
-  //   await act(async () => {
-  //     render(<ProgramExplorator />, container);
-  //   });
-  //   const careerState = document.querySelector("#selected-career");
-  //   expect(careerState.innerHTML).toBe("");
-  // });
-
-  // it("set career filter to UGRD", async () => {
-  //   API.mockImplementationOnce(() => {
-  //     return Promise.resolve({
-  //       data: mockCareers,
-  //     });
-  //   });
-
-  //   await act(async () => {
-  //     render(<ProgramExplorator />, container);
-  //   });
-
-  //   const careerState = document.querySelector("#selected-career");
-  //   expect(careerState.innerHTML).toBe("");
-
-  //   const filterButton = document.querySelector("#career-filter");
-
-  //   await act(async () => {
-  //     fireEvent(filterButton, new MouseEvent("click", { bubbles: true }));
-  //   });
-
-  //   const undergradDropdownItem = await screen.findByText("Undergraduate");
-
-  //   await act(async () => {
-  //     fireEvent(
-  //       undergradDropdownItem,
-  //       new MouseEvent("click", { bubbles: true })
-  //     );
-  //   });
-
-  //   expect(careerState.innerHTML).toBe("UGRD");
-  // });
-
   it("change career filter to Undergraduate", async () => {
     const mockOnSelect = jest.fn();
 
     API.mockImplementationOnce(() => {
       return Promise.resolve({
-        data: mockCareers,
+        data: global.mockData.mockCareers,
       });
     });
 
