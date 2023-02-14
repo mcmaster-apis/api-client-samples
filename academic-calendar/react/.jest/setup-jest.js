@@ -33,6 +33,44 @@ const localStorageMock = {
       },
     ],
   },
+  mockPrograms: {
+    "id": "mockId",
+    "programs": [{
+      "id": "mockId/UENBE",
+      "code": "UENBE",
+      "description": "Engineering Bachelors",
+      "shortDescription": "UENBE",
+      "career": {
+        "id": "mockId/UGRD",
+        "code": "UGRD",
+        "description": "Undergraduate",
+        "shortDescription": "Undergrad"
+      },
+      "faculty": {
+        "id": "mockId/02",
+        "code": "02",
+        "description": "Faculty of Science",
+        "shortDescription": "SCI"
+      }
+    }, {
+      "id": "mockId/TEST2",
+      "code": "TEST2",
+      "description": "A test program",
+      "shortDescription": "TEST2",
+      "career": {
+        "id": "mockId/UGRD",
+        "code": "UGRD",
+        "description": "Undergraduate",
+        "shortDescription": "Undergrad"
+      },
+      "faculty": {
+        "id": "mockId/02",
+        "code": "02",
+        "description": "Faculty of Science",
+        "shortDescription": "SCI"
+      }
+    }]
+  }
 };
 
 global.mockData = localStorageMock;

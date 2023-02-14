@@ -35,8 +35,8 @@ jest.mock("../src/components/FacultyFilter", () => {
   return MockFacultyFilter;
 });
 
-describe("Test selecting career filter", () => {
-  it("no career filter, state.career should be empty", async () => {
+describe("Test selecting filters", () => {
+  it("no filter, state.career and state.faculty should be empty", async () => {
     API.mockImplementation(() => {
       return Promise.resolve({
         data: null,
@@ -44,6 +44,7 @@ describe("Test selecting career filter", () => {
     });
     render(<ProgramExplorator />);
     expect((await screen.findByTestId("selected-career")).innerHTML).toBe("");
+    expect((await screen.findByTestId("selected-faculty")).innerHTML).toBe("");
   });
 
   it("set career filter to UGRD", async () => {
@@ -59,5 +60,20 @@ describe("Test selecting career filter", () => {
     fireEvent.click(screen.getByTestId("mock-career-filter"));
 
     expect(screen.getByTestId("selected-career").innerHTML).toBe("UGRD");
+  });
+
+  it("set faculty filter to 02", async () => {
+    API.mockImplementation(() => {
+      return Promise.resolve({
+        data: null,
+      });
+    });
+    render(<ProgramExplorator />);
+    const careerState = screen.getByTestId("selected-faculty");
+    expect(careerState.innerHTML).toBe("");
+
+    fireEvent.click(screen.getByTestId("mock-faculty-filter"));
+
+    expect(screen.getByTestId("selected-faculty").innerHTML).toBe("02");
   });
 });
