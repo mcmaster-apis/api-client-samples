@@ -19,7 +19,7 @@ const FacultyFilter = (props) => {
     if (!faculties.length) {
       API('faculties')
         .then(resp => setFaculties(resp.data.faculties))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     }
   }, [])
 

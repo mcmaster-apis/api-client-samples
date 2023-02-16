@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { render, cleanup } from "@testing-library/react";
-import { screen } from "@testing-library/dom";
+import { screen, waitFor } from "@testing-library/dom";
 import ProgramSet from "../src/components/ProgramSet";
 import ProgramDetails from "../src/components/ProgramDetails";
 
@@ -14,21 +14,20 @@ jest.mock("../src/components/ProgramDetails", () => {
   return jest.fn(() => null);
 });
 
+beforeEach(() => {
+  API.mockClear();
+})
+
 afterEach(cleanup);
 
 describe("Test UI render correctly", () => {
   it("without data, should not have contents", async () => {
-    API.mockImplementation(() => {
-      return Promise.resolve({
-        data: null,
-      });
-    });
     render(<ProgramSet career={''} faculty={''} />)
     expect(document.querySelector(".accordion").innerHTML).toBe("");
   })
 
   it("with data, should render a list of accordions", async () => {
-    API.mockImplementation(() => {
+    API.mockImplementationOnce(() => {
       return Promise.resolve({
         data: global.mockData.mockPrograms,
       });
@@ -41,5 +40,16 @@ describe("Test UI render correctly", () => {
     // make sure the right props are passed into ProgramDetails
     expect(ProgramDetails).toHaveBeenNthCalledWith(1, { program: global.mockData.mockPrograms.programs[0] }, expect.anything())
     expect(ProgramDetails).toHaveBeenNthCalledWith(2, { program: global.mockData.mockPrograms.programs[1] }, expect.anything())
+  })
+
+  it("API error, should log error", async () => {
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation();
+    API.mockRejectedValue("test error");
+    render(<ProgramSet career={'UGRD'} faculty={'02'} />)
+    expect(API).toHaveBeenCalledWith('programs?careerCode=UGRD&facultyCode=02');
+    await waitFor(() => {
+      expect(errorSpy).toHaveBeenCalledWith("test error");
+    })
+    errorSpy.mockRestore();
   })
 })

@@ -26,8 +26,10 @@ const ProgramSet = (props) => {
   useEffect(() => {
     if (props.career && props.faculty) {
       API(`programs?careerCode=${props.career}&facultyCode=${props.faculty}`)
-        .then(resp => setPrograms(resp.data.programs))
-        .catch(err => console.log(err))
+        .then(resp => {
+          setPrograms(resp.data.programs)
+        })
+        .catch(err => console.error(err))
     }
   }, [props.career, props.faculty])
 

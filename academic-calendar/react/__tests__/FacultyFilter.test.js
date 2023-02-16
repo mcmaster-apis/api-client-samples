@@ -7,14 +7,18 @@ import FacultyFilter from "../src/components/FacultyFilter";
 jest.mock("../src/api", () => jest.fn());
 const API = require("../src/api");
 
-afterEach(cleanup);
+// mock onSelect function
+const mockOnSelect = jest.fn();
+
+afterEach(cleanup)
 
 describe("FacultyFilter UI render correctly", () => {
-  //mock onSelect function
-  const mockOnSelect = jest.fn();
 
   it("without careers data", async () => {
-    //define the behavior of the mocked API call
+    // mock and spy on console.error
+    const errorSpy = jest.spyOn(console, 'error').mockImplementation();
+
+    // define the behavior of the mocked API call
     API.mockImplementationOnce(() => {
       return Promise.resolve({
         data: null,
@@ -23,23 +27,24 @@ describe("FacultyFilter UI render correctly", () => {
 
     render(<FacultyFilter faculty={""} onSelect={mockOnSelect} />);
 
+    // expect console.error to be called with a TypeError error
+    // wrapped in waitFor because it needs to wait for the API to resolve
+    await waitFor(() => {
+      expect(errorSpy.mock.calls[0][0]).toBeInstanceOf(TypeError);
+    })
+
     const filterButton = screen.getByRole("button", { name: "Select Faculty" });
     expect(filterButton).toBeTruthy();
 
+    // expect the dropdown menu is empty
     fireEvent.click(filterButton);
-
-    // the dropdown items may not render right away,
-    // hence we use waitFor()
-    await waitFor(() => {
-      screen.findByLabelText("filter-menu");
-    });
-
-    expect(screen.getByLabelText("filter-menu")).toBeTruthy();
-    expect(screen.getByLabelText("filter-menu").innerHTML).toBe("");
+    const filterMenu = await screen.findByLabelText("filter-menu");
+    expect(filterMenu).toBeTruthy();
+    expect(filterMenu.innerHTML).toBe("");
   });
 
   it("with mockCareers", async () => {
-    //define the behavior of the mocked API call
+    // define the behavior of the mocked API call
     API.mockImplementationOnce(() => {
       return Promise.resolve({
         data: global.mockData.mockFaculties,
@@ -62,11 +67,9 @@ describe("FacultyFilter UI render correctly", () => {
 });
 
 describe("Changing career filter", () => {
-  //mock onSelect function
-  const mockOnSelect = jest.fn();
 
   it("change career filter to Undergraduate", async () => {
-    //define the behavior of the mocked API call
+    // define the behavior of the mocked API call
     API.mockImplementationOnce(() => {
       return Promise.resolve({
         data: global.mockData.mockFaculties,
@@ -79,17 +82,12 @@ describe("Changing career filter", () => {
 
     fireEvent.click(screen.getByRole("button", { name: "Select Faculty" }));
 
-    // the dropdown items may not render right away,
-    // hence we use waitFor()
-    await waitFor(() => {
-      screen.getByText("Faculty of Science");
-    });
+    const option1 = await screen.findByText("Faculty of Science")
 
-    expect(screen.getByText("Faculty of Science")).toBeTruthy();
-    fireEvent.click(screen.getByText("Faculty of Science"));
+    expect(option1).toBeTruthy();
+    fireEvent.click(option1);
 
     // expect onSelect to be triggered once with "02" as 1st param
-    // and an Event object as 2nd param (hence expect.anything())
-    expect(mockOnSelect).toHaveBeenNthCalledWith(1, "02", expect.anything());
+    expect(mockOnSelect.mock.calls[0][0]).toBe("02");
   });
 });
