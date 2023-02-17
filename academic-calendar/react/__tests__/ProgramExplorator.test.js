@@ -10,7 +10,7 @@ const API = require("../src/api");
 
 afterEach(cleanup);
 
-//set up a mock module
+//set up a mock module for CareerFilter
 jest.mock("../src/components/CareerFilter", () => {
   const MockCareerFilter = (props) => {
     const onClick = () => {
@@ -21,7 +21,7 @@ jest.mock("../src/components/CareerFilter", () => {
   return MockCareerFilter;
 });
 
-//set up a mock module
+//set up a mock module for FacultyFilter
 jest.mock("../src/components/FacultyFilter", () => {
   const MockFacultyFilter = (props) => {
     const onClick = () => {
@@ -35,6 +35,7 @@ jest.mock("../src/components/FacultyFilter", () => {
   return MockFacultyFilter;
 });
 
+//set up a mock module for ProgramSet
 jest.mock("../src/components/ProgramSet", () => {
   return jest.fn(() => null);
 })

@@ -27,6 +27,8 @@ describe("FacultyFilter UI render correctly", () => {
 
     render(<FacultyFilter faculty={""} onSelect={mockOnSelect} />);
 
+    expect(API).toHaveBeenCalledWith("faculties");
+
     // expect console.error to be called with a TypeError error
     // wrapped in waitFor because it needs to wait for the API to resolve
     await waitFor(() => {
@@ -53,7 +55,7 @@ describe("FacultyFilter UI render correctly", () => {
 
     render(<FacultyFilter faculty={""} onSelect={mockOnSelect} />);
 
-    expect(API).toHaveBeenCalled();
+    expect(API).toHaveBeenCalledWith("faculties");
 
     const filterButton = screen.getByRole("button", { name: "Select Faculty" });
     expect(filterButton).toBeTruthy();
@@ -78,7 +80,7 @@ describe("Changing career filter", () => {
 
     render(<FacultyFilter faculty={""} onSelect={mockOnSelect} />);
 
-    expect(API).toHaveBeenCalled();
+    expect(API).toHaveBeenCalledWith("faculties");
 
     fireEvent.click(screen.getByRole("button", { name: "Select Faculty" }));
 

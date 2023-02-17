@@ -14,10 +14,6 @@ jest.mock("../src/components/ProgramDetails", () => {
   return jest.fn(() => null);
 });
 
-beforeEach(() => {
-  API.mockClear();
-})
-
 afterEach(cleanup);
 
 describe("Test UI render correctly", () => {
