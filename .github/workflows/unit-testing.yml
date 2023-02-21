@@ -1,8 +1,6 @@
 name: unit-testing
 
-on:
-  push
-  pull_request
+on: [push, pull_request]
 
 jobs:
   unit-test-academic-calendar-react:
