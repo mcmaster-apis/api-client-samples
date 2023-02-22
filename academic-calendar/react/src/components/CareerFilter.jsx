@@ -16,8 +16,8 @@ const CareerFilter = (props) => {
   const [careers, setCareers] = useState([])
   useEffect(() => {
     if (!careers.length) {
-      API(`careers`)
-        .then(resp => { setCareers(resp.data.careers) })
+      API('careers')
+        .then(resp => setCareers(resp.data.careers))
         .catch(err => console.error(err))
     }
   }, [])

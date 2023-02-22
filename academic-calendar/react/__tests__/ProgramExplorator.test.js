@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { render, fireEvent, cleanup, act } from "@testing-library/react";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 import { screen } from "@testing-library/dom";
 import ProgramExplorator from "../src/components/ProgramExplorator";
 import ProgramSet from "../src/components/ProgramSet";
@@ -81,4 +81,3 @@ describe("Test selecting filters", () => {
     expect(ProgramSet).lastCalledWith({ faculty: "02", career: "UGRD" }, expect.anything())
   })
 });
-
