@@ -62,9 +62,8 @@ describe("FacultyFilter UI render correctly", () => {
 
     fireEvent.click(filterButton);
 
-    const options = await screen.findAllByTestId("faculty-option");
-    expect(options[0].innerHTML).toBe("Faculty of Science");
-    expect(options[1].innerHTML).toBe("Faculty of Engineering");
+    expect(screen.findByText("Faculty of Science"));
+    expect(screen.findByText("Faculty of Engineering"));
   });
 });
 

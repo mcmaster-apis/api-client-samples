@@ -4,25 +4,26 @@ import { screen } from "@testing-library/dom";
 import ProgramExplorator from "../src/components/ProgramExplorator";
 import ProgramSet from "../src/components/ProgramSet";
 
-//set up a mock API call
-jest.mock("../src/api", () => jest.fn());
-const API = require("../src/api");
-
 afterEach(cleanup);
 
 //set up a mock module for CareerFilter
 jest.mock("../src/components/CareerFilter", () => {
+  const PropTypes = require('prop-types')
   const MockCareerFilter = (props) => {
     const onClick = () => {
       props.onSelect("UGRD");
     };
     return <button data-testid="mock-career-filter" onClick={onClick}></button>;
   };
+  MockCareerFilter.propTypes = {
+    onSelect: PropTypes.func.isRequired
+  }
   return MockCareerFilter;
 });
 
 //set up a mock module for FacultyFilter
 jest.mock("../src/components/FacultyFilter", () => {
+  const PropTypes = require('prop-types')
   const MockFacultyFilter = (props) => {
     const onClick = () => {
       props.onSelect("02");
@@ -32,6 +33,10 @@ jest.mock("../src/components/FacultyFilter", () => {
     );
   };
 
+  MockFacultyFilter.propTypes = {
+    onSelect: PropTypes.func.isRequired
+  }
+
   return MockFacultyFilter;
 });
 
@@ -40,36 +45,28 @@ jest.mock("../src/components/ProgramSet", () => {
   return jest.fn(() => null);
 })
 
-// define mocked API behaviour
-API.mockImplementation(() => {
-  return Promise.resolve({
-    data: null,
-  });
-});
-
 describe("Test selecting filters", () => {
   it("no filter, state.career and state.faculty should be empty", async () => {
     render(<ProgramExplorator />);
-    expect((await screen.findByTestId("selected-career")).innerHTML).toBe("");
-    expect((await screen.findByTestId("selected-faculty")).innerHTML).toBe("");
+
+    expect(screen.queryByText("UGRD")).not.toBeInTheDocument();
+    expect(screen.queryByText("02")).not.toBeInTheDocument();
   });
 
   it("set career filter to UGRD", async () => {
     render(<ProgramExplorator />);
-    const careerState = screen.getByTestId("selected-career");
-    expect(careerState.innerHTML).toBe("");
+    expect(screen.queryByText("UGRD")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId("mock-career-filter"));
-    expect(screen.getByTestId("selected-career").innerHTML).toBe("UGRD");
+    expect(screen.getByText("UGRD")).toBeInTheDocument();
   });
 
   it("set faculty filter to 02", async () => {
     render(<ProgramExplorator />);
-    const careerState = screen.getByTestId("selected-faculty");
-    expect(careerState.innerHTML).toBe("");
+    expect(screen.queryByText("02")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId("mock-faculty-filter"));
-    expect(screen.getByTestId("selected-faculty").innerHTML).toBe("02");
+    expect(screen.getByText("02")).toBeInTheDocument();
   });
 
   it("should pass the right params to ProgramSet", async () => {

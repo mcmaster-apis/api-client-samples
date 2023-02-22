@@ -61,9 +61,8 @@ describe("CareerFilter UI render correctly", () => {
 
     fireEvent.click(filterButton);
 
-    const options = await screen.findAllByTestId("career-option");
-    expect(options[0].innerHTML).toBe("Undergraduate");
-    expect(options[1].innerHTML).toBe("Graduate");
+    expect(await screen.findByText("Undergraduate")).toBeInTheDocument();
+    expect(await screen.findByText("Graduate")).toBeInTheDocument();
   });
 });
 

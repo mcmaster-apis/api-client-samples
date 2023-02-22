@@ -7,7 +7,7 @@ import API from '../api'
 const DropDownItems = (props) => {
   return Object.entries(props.faculties).map((entry, index) => {
     return (
-      <Dropdown.Item data-testid="faculty-option" key={index} eventKey={entry[1].code} active={entry[1].code === props.faculty}>{entry[1].description}</Dropdown.Item>
+      <Dropdown.Item key={index} eventKey={entry[1].code} active={entry[1].code === props.faculty}>{entry[1].description}</Dropdown.Item>
     )
   })
 }
