@@ -36,7 +36,7 @@
     "test": "jest -c jest.config.js --runInBand --",
     "test:coverage": "jest --coverage",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.jsx src/**/*.js"
+    "lint": "eslint src/**/*.jsx src/**/*.js ./*.js __tests__/**/*.js"
   },
   "eslintConfig": {
     "extends": [
