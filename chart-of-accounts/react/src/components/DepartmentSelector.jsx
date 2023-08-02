@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 
 import Dropdown from 'react-bootstrap/Dropdown'
 import Spinner from 'react-bootstrap/Spinner'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Tooltip from 'react-bootstrap/Tooltip'
-import Image from 'react-bootstrap/Image'
 import Stack from 'react-bootstrap/Stack'
 
 import API from '../api'
