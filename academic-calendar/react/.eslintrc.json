@@ -3,7 +3,8 @@
     "browser": true,
     "es2021": true,
     "serviceworker": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",

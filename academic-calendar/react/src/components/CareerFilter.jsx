@@ -14,12 +14,11 @@ const DropDownItems = (props) => {
 
 const CareerFilter = (props) => {
   const [careers, setCareers] = useState([])
-
   useEffect(() => {
     if (!careers.length) {
       API('careers')
         .then(resp => setCareers(resp.data.careers))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     }
   }, [])
 
@@ -29,7 +28,7 @@ const CareerFilter = (props) => {
         Select Career
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu aria-label='filter-menu'>
         <DropDownItems careers={careers} career={props.career} />
       </Dropdown.Menu>
     </Dropdown>

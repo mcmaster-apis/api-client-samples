@@ -1,0 +1,90 @@
+$theme-colors: (
+  "primary": #7a003c,
+  "secondary": #fdbf57,
+  "light": #efefef,
+  "dark": #222222,
+  "warning": #ffd100,
+  "success": #d2d755,
+  "info": #8bd3e6,
+  "danger": #a6192e
+);
+
+@font-face {
+    src: url("../fonts/roboto-condensed-v19-latin-regular.woff2") format("woff2");
+
+    font-family: "Roboto Condensed";
+    font-weight: 400;
+}
+
+$font-family-sans-serif: "Roboto Condensed", sans-serif;
+
+@mixin font-smoothing($value: antialiased) {
+  @if $value == antialiased {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  @else {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+  }
+}
+
+body {
+  margin: 0;
+  @include font-smoothing(antialiased);
+}
+
+* {
+  font-size: calc(1vw);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+div#root {
+  max-width: 800px;
+  margin: auto;
+}
+
+.scrolled-dropdown.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
+}
+
+.dropdown-spinner {
+  margin: auto;
+}
+
+.validator-row.row {
+  padding-bottom: 3px;
+  vertical-align: middle;
+}
+
+.error-message-row.row {
+  padding-bottom: 5px;
+  vertical-align: top;
+}
+
+.error-detail-row.row {
+  padding-bottom: 0px;
+  vertical-align: top;
+}
+
+.validator-result-row.row {
+  padding-bottom: 0px;
+  vertical-align: middle;
+}
+
+div[disabled] {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.cookbook-tooltip > .tooltip-inner {
+  max-width: 300px;
+  font-size: calc(0.8vw);
+}
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

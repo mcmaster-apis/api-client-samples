@@ -19,7 +19,7 @@ const FacultyFilter = (props) => {
     if (!faculties.length) {
       API('faculties')
         .then(resp => setFaculties(resp.data.faculties))
-        .catch(err => console.log(err))
+        .catch(err => console.error(err))
     }
   }, [])
 
@@ -29,7 +29,7 @@ const FacultyFilter = (props) => {
         Select Faculty
       </Dropdown.Toggle>
 
-      <Dropdown.Menu>
+      <Dropdown.Menu aria-label='filter-menu'>
         <DropDownItems faculties={faculties} faculty={props.faculty} />
       </Dropdown.Menu>
     </Dropdown>

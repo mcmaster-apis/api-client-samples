@@ -1,4 +1,5 @@
-/react/public/environment.js
+# SPA client settings
+**/react/public/environment.js
 
 # Eclipse
 .project
