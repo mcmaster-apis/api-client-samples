@@ -1,18 +1,22 @@
 <?php
 
+require_once 'fetch.php';  // Include your fetch function
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
-  // Retrieve the selected values from the form
   $careerFilterValue = $_GET['career-filter'] ?? '';
   $facultyFilterValue = $_GET['faculty-filter'] ?? '';
 
-  // Store results or necessary data in a session (or another mechanism).
-  session_start();
-  $_SESSION['careerFilterValue'] = $careerFilterValue;
+  $queries = 'careerCode=' . urlencode($careerFilterValue) . '&facultyCode=' . urlencode($facultyFilterValue);
 
-  $_SESSION['facultyFilterValue'] = $facultyFilterValue;
+  try {
+    // Call the fetch function
+    $response = fetch('programs', $queries);
+    echo json_encode(['success' => true, 'data' => json_decode($response)]);
+  } catch (Exception $e) {
+    http_response_code(500);  // Internal server error
+    echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+  }
 
-  // Redirect back to index.php (or another page) to display results.
-  header("Location: index.php?career-filter=$careerFilterValue&faculty-filter=$facultyFilterValue");
   exit;
 }
