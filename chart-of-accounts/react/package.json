@@ -4,8 +4,8 @@
   "description": "Chart field string validation UI",
   "license": "Apache-2.0",
   "dependencies": {
-    "@azure/msal-browser": "^2.36.0",
-    "@azure/msal-react": "^1.5.5",
+    "@azure/msal-browser": "^3.6.0",
+    "@azure/msal-react": "^2.0.8",
     "@popperjs/core": "^2.11.7",
     "axios": "1.6.0",
     "bootstrap": "^5.2.2",
@@ -15,27 +15,36 @@
     "react-bootstrap-typeahead": "^6.0.0",
     "react-dom": "^18.2.0",
     "react-popper": "^2.3.0",
-    "react-router-dom": "^6.10.0",
-    "workbox-background-sync": "^6.5.4",
-    "workbox-broadcast-update": "^6.5.4",
-    "workbox-cacheable-response": "^6.5.4",
-    "workbox-core": "^6.5.4",
-    "workbox-expiration": "^6.5.4",
-    "workbox-google-analytics": "^6.5.4",
-    "workbox-navigation-preload": "^6.5.4",
-    "workbox-precaching": "^6.5.4",
-    "workbox-range-requests": "^6.5.4",
-    "workbox-routing": "^6.5.4",
-    "workbox-strategies": "^6.5.4",
-    "workbox-streams": "^6.5.4"
+    "react-router-dom": "^6.10.0"
   },
-  "overrides": {
-    "nth-check": "$nth-check"
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "eslint": "^8.39.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "^7.32.2",
+    "msal-react-tester": "^0.1.2",
+    "node-sass": "^8.0.0",
+    "@svgr/webpack": "^8.1.0",
+    "react-scripts": "5.0.1"
   },
   "peerDependencies": {
     "http-cache-semantics": "^4.1.1",
-    "nth-check": "^2.0.1",
     "webpack": "^5.80.0"
+  },
+  "overrides": {
+    "@svgr/webpack": "$@svgr/webpack",
+    "resolve-url-loader": "^5.0.0",
+    "nth-check": "^2.0.1"
+  },
+  "resolutions": {
+    "@svgr/webpack": "^8.1.0",
+    "resolve-url-loader": "^5.0.0",
+    "nth-check": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -55,20 +64,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "eslint": "^8.39.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.32.2",
-    "msal-react-tester": "^0.1.2",
-    "react-scripts": "5.0.1",
-    "node-sass": "^8.0.0"
   },
   "eslintConfig": {
     "env": {
